@@ -6,8 +6,8 @@ local lastClicks = -1
 local C = 0x70
 
 local DIGIT_SIZE = 6
-local DIGIT_SCALE = 3
-local DIGIT_SPACING = 20
+local DIGIT_SCALE = 2
+local DIGIT_SPACING = 14
 
 local function makeTexture(grid)
     return texture.new(vector2.new(DIGIT_SIZE, DIGIT_SIZE), grid)
@@ -17,12 +17,12 @@ local digitTextures = {}
 
 -- 0
 digitTextures[0] = makeTexture({
+    C,C,C,C,C,C,
     C,0,0,0,0,C,
     C,0,0,0,0,C,
     C,0,0,0,0,C,
     C,0,0,0,0,C,
-    C,0,0,0,0,C,
-    C,0,0,0,0,C,
+    C,C,C,C,C,C,
 })
 
 -- 1
