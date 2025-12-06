@@ -3,46 +3,10 @@ local cps = 1
 local db = false
 local lastClicks = clicks
 local selectedUpgrade = "AutoClicker"
-local digitTextures = {}
+local digitTextures = require("digitTextures.mod")
 os.cls()
 
-local function makeTexture(grid)
-    return texture.new(vector2.new(4, 4), grid)
-end
-
 local C = 0x0F
-
-digitTextures[0] = makeTexture({
-    C,C,C,C,
-    C,0,0,C,
-    C,0,0,C,
-    C,0,0,C,
-    C,C,C,C,
-})
-
-digitTextures[1] = makeTexture({
-    0,0,C,0,
-    0,C,C,0,
-    0,0,C,0,
-    0,0,C,0,
-    0,0,C,0,
-})
-
-digitTextures[2] = makeTexture({
-    C,C,C,C,
-    C,0,0,C,
-    0,0,C,0,
-    0,C,0,0,
-    C,C,C,C,
-})
-
-digitTextures[3] = makeTexture({
-    C,C,C,C,
-    0,0,0,C,
-    C,C,C,C,
-    0,0,0,C,
-    C,C,C,C,
-})
 
 local activeSprites = {}
 
@@ -66,7 +30,7 @@ local function drawNumber(n, startX, startY)
         if tex then
             local s = sprite.new(tex, vector2.new(4, 4))
             s.position = vector2.new(x, startY)
-            s.scale = vector2.new(5, 5)
+            s.scale = vector2.new(4, 4)
 
             table.insert(activeSprites, s)
 
@@ -83,11 +47,11 @@ control:Connect(1, function(InputType, pressed)
     end
 end)
 
-drawNumber(clicks, 3, 3)
+drawNumber(clicks, 4, 4)
 
 while true do
     if clicks ~= lastClicks then
-        drawNumber(clicks, 3, 3)
+        drawNumber(clicks, 4, 4)
         lastClicks = clicks
     end
     wait(0.01)

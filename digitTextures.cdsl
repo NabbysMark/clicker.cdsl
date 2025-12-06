@@ -1,0 +1,71 @@
+local digitTextures = {}
+
+local function makeTexture(grid)
+    return texture.new(vector2.new(4, 4), grid)
+end
+
+digitTextures[0] = makeTexture({
+    C,C,C,C,
+    C,0,0,C,
+    C,0,0,C,
+    C,0,0,C,
+    C,C,C,C,
+})
+
+digitTextures[1] = makeTexture({
+    0,0,C,0,
+    0,C,C,0,
+    0,0,C,0,
+    0,0,C,0,
+    0,0,C,0,
+})
+
+digitTextures[2] = makeTexture({
+    C,C,C,C,
+    C,0,0,C,
+    0,0,C,0,
+    0,C,0,0,
+    C,C,C,C,
+})
+
+digitTextures[3] = makeTexture({
+    C,C,C,C,
+    0,0,0,C,
+    C,C,C,C,
+    0,0,0,C,
+    C,C,C,C,
+})
+
+digitTextures[4] = makeTexture({
+    C,0,0,C,
+    C,0,0,C,
+    C,C,C,C,
+    0,0,0,C,
+    0,0,0,C,
+})
+
+digitTextures[5] = makeTexture({
+    C,C,C,C,
+    C,0,0,0,
+    C,C,C,C,
+    0,0,0,C,
+    C,C,C,C,
+})
+
+digitTextures[6] = makeTexture({
+    C,C,C,0,
+    C,0,0,0,
+    C,C,C,C,
+    C,0,0,C,
+    C,C,C,C,
+})
+
+digitTextures[7] = makeTexture({
+    C,C,C,C,
+    0,0,0,C,
+    0,0,0,C,
+    0,0,0,C,
+    0,0,0,C,
+})
+
+return digitTextures
