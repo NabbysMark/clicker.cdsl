@@ -1,5 +1,4 @@
 local C = 0x70
-
 local DIGIT_SIZE = 6
 
 local function makeTexture(grid)

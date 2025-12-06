@@ -7,48 +7,58 @@ local digits = require("digitTextures.mod")
 local digitTextures = digits.digitTextures
 local DIGIT_SIZE = digits.DIGIT_SIZE
 
-local DIGIT_SCALE = 3
-local DIGIT_SPACING = 20
+local chars = require("characterTextures.lua")
+local characterTextures = chars.characterTextures
+local CHAR_SIZE = chars.CHAR_SIZE
+
+local SCALE = 3
+local SPACING = 20
 
 local activeSprites = {}
 
-local function clearNumberSprites()
+local function clearSprites()
     for _, spr in ipairs(activeSprites) do
         spr:Destroy()
     end
     activeSprites = {}
 end
 
-local function drawNumber(n, startX, startY)
-    clearNumberSprites()
+local function drawText(str, startX, startY)
+    clearSprites()
 
-    local str = tostring(n)
     local x = startX
 
     for i = 1, #str do
-        local digit = tonumber(str:sub(i, i))
-        local tex = digitTextures[digit]
+        local ch = str:sub(i, i)
+        local tex
+
+        if digitTextures[ch] then
+            tex = digitTextures[ch]
+        elseif characterTextures[ch] then
+            tex = characterTextures[ch]
+        end
 
         if tex then
-            local s = sprite.new(tex, vector2.new(DIGIT_SIZE, DIGIT_SIZE))
-            s.scale = vector2.new(DIGIT_SCALE, DIGIT_SCALE)
-            s.position = vector2.new(x, startY)
-            table.insert(activeSprites, s)
+            local spriteObj = sprite.new(tex, vector2.new(CHAR_SIZE, CHAR_SIZE))
+            spriteObj.scale = vector2.new(SCALE, SCALE)
+            spriteObj.position = vector2.new(x, startY)
 
-            x = x + DIGIT_SPACING
+            table.insert(activeSprites, spriteObj)
+
+            x = x + SPACING
         end
     end
 end
 
 control:Connect(1, function(inputType, pressed)
     if inputType == "ButtonA" and pressed then
-        clicks = clicks + 1
+        clicks += 1
     end
 end)
 
 while true do
     if clicks ~= lastClicks then
-        drawNumber(clicks, 10, 10)
+        drawText(tostring(clicks), 20, 20)
         lastClicks = clicks
     end
 
