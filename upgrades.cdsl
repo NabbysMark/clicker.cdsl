@@ -1,0 +1,6 @@
+return {
+    ["AutoClicker"] = {
+        Price = 25,
+        
+    }
+}

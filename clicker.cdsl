@@ -1,0 +1,94 @@
+local clicks = 0
+local cps = 1
+local db = false
+local lastClicks = clicks
+local selectedUpgrade = "AutoClicker"
+local digitTextures = {}
+os.cls()
+
+local function makeTexture(grid)
+    return texture.new(vector2.new(4, 4), grid)
+end
+
+local C = 0x0F
+
+digitTextures[0] = makeTexture({
+    C,C,C,C,
+    C,0,0,C,
+    C,0,0,C,
+    C,0,0,C,
+    C,C,C,C,
+})
+
+digitTextures[1] = makeTexture({
+    0,0,C,0,
+    0,C,C,0,
+    0,0,C,0,
+    0,0,C,0,
+    0,0,C,0,
+})
+
+digitTextures[2] = makeTexture({
+    C,C,C,C,
+    C,0,0,C,
+    0,0,C,0,
+    0,C,0,0,
+    C,C,C,C,
+})
+
+digitTextures[3] = makeTexture({
+    C,C,C,C,
+    0,0,0,C,
+    C,C,C,C,
+    0,0,0,C,
+    C,C,C,C,
+})
+
+local activeSprites = {}
+
+local function clearNumberSprites()
+    for _, spr in ipairs(activeSprites) do
+        spr:Destroy()
+    end
+    activeSprites = {}
+end
+
+local function drawNumber(n, startX, startY)
+    clearNumberSprites()
+
+    local str = tostring(n)
+    local x = startX
+
+    for i = 1, #str do
+        local digit = tonumber(str:sub(i, i))
+        local tex = digitTextures[digit]
+
+        if tex then
+            local s = sprite.new(tex, vector2.new(4, 4))
+            s.position = vector2.new(x, startY)
+            s.scale = vector2.new(5, 5)
+
+            table.insert(activeSprites, s)
+
+            x = x + 24
+        end
+    end
+end
+
+control:Connect(1, function(InputType, pressed)
+    if InputType == "ButtonA" then
+        clicks += 1
+    elseif InputType == "ButtonB" then
+        
+    end
+end)
+
+drawNumber(clicks, 3, 3)
+
+while true do
+    if clicks ~= lastClicks then
+        drawNumber(clicks, 3, 3)
+        lastClicks = clicks
+    end
+    wait(0.01)
+end
