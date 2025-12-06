@@ -3,7 +3,26 @@ local cps = 1
 local db = false
 local lastClicks = clicks
 local selectedUpgrade = "AutoClicker"
-local digitTextures = require("digitTextures.mod")
+local digitTextures = {}
+
+local function makeTexture(grid)
+    return texture.new(vector2.new(4, 4), grid)
+end
+
+digitTextures[0] = makeTexture({
+    C,0,0,C,
+    0,0,0,0,
+    0,0,0,0,
+    C,0,0,C,
+})
+
+digitTextures[1] = makeTexture({
+    0,0,C,0,
+    0,C,0,0,
+    0,0,C,0,
+    0,0,C,0,
+})
+
 os.cls()
 
 local C = 0x0F
