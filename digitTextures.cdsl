@@ -8,12 +8,12 @@ end
 local digitTextures = {}
 
 digitTextures[0] = makeTexture({
+    C,C,C,C,C,C,
     C,0,0,0,0,C,
     C,0,0,0,0,C,
     C,0,0,0,0,C,
     C,0,0,0,0,C,
-    C,0,0,0,0,C,
-    C,0,0,0,0,C,
+    C,C,C,C,C,C,
 })
 
 digitTextures[1] = makeTexture({

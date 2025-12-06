@@ -1,5 +1,5 @@
-render.text = false
 
+os.cls()
 local clicks = 0
 local lastClicks = -1
 
@@ -7,58 +7,48 @@ local digits = require("digitTextures.mod")
 local digitTextures = digits.digitTextures
 local DIGIT_SIZE = digits.DIGIT_SIZE
 
-local chars = require("characterTextures.lua")
-local characterTextures = chars.characterTextures
-local CHAR_SIZE = chars.CHAR_SIZE
-
-local SCALE = 3
-local SPACING = 20
+local DIGIT_SCALE = 3
+local DIGIT_SPACING = 20
 
 local activeSprites = {}
 
-local function clearSprites()
+local function clearNumberSprites()
     for _, spr in ipairs(activeSprites) do
         spr:Destroy()
     end
     activeSprites = {}
 end
 
-local function drawText(str, startX, startY)
-    clearSprites()
+local function drawNumber(n, startX, startY)
+    clearNumberSprites()
 
+    local str = tostring(n)
     local x = startX
 
     for i = 1, #str do
-        local ch = str:sub(i, i)
-        local tex
-
-        if digitTextures[ch] then
-            tex = digitTextures[ch]
-        elseif characterTextures[ch] then
-            tex = characterTextures[ch]
-        end
+        local digit = tonumber(str:sub(i, i))
+        local tex = digitTextures[digit]
 
         if tex then
-            local spriteObj = sprite.new(tex, vector2.new(CHAR_SIZE, CHAR_SIZE))
-            spriteObj.scale = vector2.new(SCALE, SCALE)
-            spriteObj.position = vector2.new(x, startY)
+            local s = sprite.new(tex, vector2.new(DIGIT_SIZE, DIGIT_SIZE))
+            s.scale = vector2.new(DIGIT_SCALE, DIGIT_SCALE)
+            s.position = vector2.new(x, startY)
+            table.insert(activeSprites, s)
 
-            table.insert(activeSprites, spriteObj)
-
-            x = x + SPACING
+            x = x + DIGIT_SPACING
         end
     end
 end
 
 control:Connect(1, function(inputType, pressed)
     if inputType == "ButtonA" and pressed then
-        clicks += 1
+        clicks = clicks + 1
     end
 end)
 
 while true do
     if clicks ~= lastClicks then
-        drawText(tostring(clicks), 20, 20)
+        drawNumber(clicks, 20, 20)
         lastClicks = clicks
     end
 
