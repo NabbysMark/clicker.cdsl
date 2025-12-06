@@ -1,87 +1,104 @@
-local digitTextures = {}
+local C = 0x70
+
+local DIGIT_SIZE = 6
 
 local function makeTexture(grid)
-    return texture.new(vector2.new(4, 4), grid)
+    return texture.new(vector2.new(DIGIT_SIZE, DIGIT_SIZE), grid)
 end
 
+local digitTextures = {}
+
 digitTextures[0] = makeTexture({
-    C,C,C,C,
-    C,0,0,C,
-    C,0,0,C,
-    C,0,0,C,
-    C,C,C,C,
+    C,0,0,0,0,C,
+    C,0,0,0,0,C,
+    C,0,0,0,0,C,
+    C,0,0,0,0,C,
+    C,0,0,0,0,C,
+    C,0,0,0,0,C,
 })
 
 digitTextures[1] = makeTexture({
-    0,0,C,0,
-    0,C,C,0,
-    0,0,C,0,
-    0,0,C,0,
-    0,0,C,0,
+    0,0,C,0,0,0,
+    0,C,C,0,0,0,
+    0,0,C,0,0,0,
+    0,0,C,0,0,0,
+    0,0,C,0,0,0,
+    0,0,C,0,0,0,
 })
 
 digitTextures[2] = makeTexture({
-    C,C,C,C,
-    C,0,0,C,
-    0,0,C,0,
-    0,C,0,0,
-    C,C,C,C,
+    C,C,C,C,C,C,
+    0,0,0,0,0,C,
+    C,C,C,C,C,C,
+    C,0,0,0,0,0,
+    C,0,0,0,0,0,
+    C,C,C,C,C,C,
 })
 
 digitTextures[3] = makeTexture({
-    C,C,C,C,
-    0,0,0,C,
-    C,C,C,C,
-    0,0,0,C,
-    C,C,C,C,
+    C,C,C,C,C,C,
+    0,0,0,0,0,C,
+    C,C,C,C,C,C,
+    0,0,0,0,0,C,
+    0,0,0,0,0,C,
+    C,C,C,C,C,C,
 })
 
 digitTextures[4] = makeTexture({
-    C,0,0,C,
-    C,0,0,C,
-    C,C,C,C,
-    0,0,0,C,
-    0,0,0,C,
+    C,0,0,0,0,C,
+    C,0,0,0,0,C,
+    C,C,C,C,C,C,
+    0,0,0,0,0,C,
+    0,0,0,0,0,C,
+    0,0,0,0,0,C,
 })
 
 digitTextures[5] = makeTexture({
-    C,C,C,C,
-    C,0,0,0,
-    C,C,C,C,
-    0,0,0,C,
-    C,C,C,C,
+    C,C,C,C,C,C,
+    C,0,0,0,0,0,
+    C,C,C,C,C,C,
+    0,0,0,0,0,C,
+    0,0,0,0,0,C,
+    C,C,C,C,C,C,
 })
 
 digitTextures[6] = makeTexture({
-    C,C,C,0,
-    C,0,0,0,
-    C,C,C,C,
-    C,0,0,C,
-    C,C,C,C,
+    C,0,0,0,0,0,
+    C,0,0,0,0,0,
+    C,C,C,C,C,C,
+    C,0,0,0,0,C,
+    C,0,0,0,0,C,
+    C,C,C,C,C,C,
 })
 
 digitTextures[7] = makeTexture({
-    C,C,C,C,
-    0,0,0,C,
-    0,0,0,C,
-    0,0,0,C,
-    0,0,0,C,
+    C,C,C,C,C,C,
+    0,0,0,0,0,C,
+    0,0,0,0,C,0,
+    0,0,0,C,0,0,
+    0,0,C,0,0,0,
+    0,C,0,0,0,0,
 })
 
 digitTextures[8] = makeTexture({
-    C,C,C,C,
-    C,0,0,C,
-    C,C,C,C,
-    C,0,0,C,
-    C,C,C,C,
+    C,C,C,C,C,C,
+    C,0,0,0,0,C,
+    C,C,C,C,C,C,
+    C,0,0,0,0,C,
+    C,0,0,0,0,C,
+    C,C,C,C,C,C,
 })
 
 digitTextures[9] = makeTexture({
-    C,C,C,C,
-    C,0,0,C,
-    C,C,C,C,
-    0,0,0,C,
-    0,0,0,C,
+    C,C,C,C,C,C,
+    C,0,0,0,0,C,
+    C,C,C,C,C,C,
+    0,0,0,0,0,C,
+    0,0,0,0,0,C,
+    C,C,C,C,C,C,
 })
 
-return digitTextures
+return {
+    DIGIT_SIZE = DIGIT_SIZE,
+    digitTextures = digitTextures,
+}

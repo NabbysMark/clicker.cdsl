@@ -3,117 +3,12 @@ render.text = false
 local clicks = 0
 local lastClicks = -1
 
-local C = 0x70
+local digits = require("digitTextures.mod")
+local digitTextures = digits.digitTextures
+local DIGIT_SIZE = digits.DIGIT_SIZE
 
-local DIGIT_SIZE = 6
-local DIGIT_SCALE = 2
-local DIGIT_SPACING = 14
-
-local function makeTexture(grid)
-    return texture.new(vector2.new(DIGIT_SIZE, DIGIT_SIZE), grid)
-end
-
-local digitTextures = {}
-
--- 0
-digitTextures[0] = makeTexture({
-    C,C,C,C,C,C,
-    C,0,0,0,0,C,
-    C,0,0,0,0,C,
-    C,0,0,0,0,C,
-    C,0,0,0,0,C,
-    C,C,C,C,C,C,
-})
-
--- 1
-digitTextures[1] = makeTexture({
-    0,0,C,0,0,0,
-    0,C,C,0,0,0,
-    0,0,C,0,0,0,
-    0,0,C,0,0,0,
-    0,0,C,0,0,0,
-    0,0,C,0,0,0,
-})
-
--- 2
-digitTextures[2] = makeTexture({
-    C,C,C,C,C,C,
-    0,0,0,0,0,C,
-    C,C,C,C,C,C,
-    C,0,0,0,0,0,
-    C,0,0,0,0,0,
-    C,C,C,C,C,C,
-})
-
--- 3
-digitTextures[3] = makeTexture({
-    C,C,C,C,C,C,
-    0,0,0,0,0,C,
-    C,C,C,C,C,C,
-    0,0,0,0,0,C,
-    0,0,0,0,0,C,
-    C,C,C,C,C,C,
-})
-
--- 4
-digitTextures[4] = makeTexture({
-    C,0,0,0,0,C,
-    C,0,0,0,0,C,
-    C,C,C,C,C,C,
-    0,0,0,0,0,C,
-    0,0,0,0,0,C,
-    0,0,0,0,0,C,
-})
-
--- 5
-digitTextures[5] = makeTexture({
-    C,C,C,C,C,C,
-    C,0,0,0,0,0,
-    C,C,C,C,C,C,
-    0,0,0,0,0,C,
-    0,0,0,0,0,C,
-    C,C,C,C,C,C,
-})
-
--- 6
-digitTextures[6] = makeTexture({
-    C,0,0,0,0,0,
-    C,0,0,0,0,0,
-    C,C,C,C,C,C,
-    C,0,0,0,0,C,
-    C,0,0,0,0,C,
-    C,C,C,C,C,C,
-})
-
--- 7
-digitTextures[7] = makeTexture({
-    C,C,C,C,C,C,
-    0,0,0,0,0,C,
-    0,0,0,0,C,0,
-    0,0,0,C,0,0,
-    0,0,C,0,0,0,
-    0,C,0,0,0,0,
-})
-
--- 8
-digitTextures[8] = makeTexture({
-    C,C,C,C,C,C,
-    C,0,0,0,0,C,
-    C,C,C,C,C,C,
-    C,0,0,0,0,C,
-    C,0,0,0,0,C,
-    C,C,C,C,C,C,
-})
-
--- 9
-digitTextures[9] = makeTexture({
-    C,C,C,C,C,C,
-    C,0,0,0,0,C,
-    C,C,C,C,C,C,
-    0,0,0,0,0,C,
-    0,0,0,0,0,C,
-    C,C,C,C,C,C,
-})
+local DIGIT_SCALE = 3
+local DIGIT_SPACING = 20
 
 local activeSprites = {}
 
@@ -138,8 +33,8 @@ local function drawNumber(n, startX, startY)
             local s = sprite.new(tex, vector2.new(DIGIT_SIZE, DIGIT_SIZE))
             s.scale = vector2.new(DIGIT_SCALE, DIGIT_SCALE)
             s.position = vector2.new(x, startY)
-
             table.insert(activeSprites, s)
+
             x = x + DIGIT_SPACING
         end
     end
@@ -156,5 +51,6 @@ while true do
         drawNumber(clicks, 10, 10)
         lastClicks = clicks
     end
+
     wait(0.01)
 end
