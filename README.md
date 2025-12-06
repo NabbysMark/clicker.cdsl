@@ -8,3 +8,7 @@ Create the following files:
 clicker.lua - Contents of "clicker.cdsl"
 digitTextures.mod - Contents of "digitTextures.cdsl"
 upgrades.mod - Contents of "upgrades.cdsl"
+
+# Components Required
+
+You need: 1 Joystick, 1 PC Monitor.

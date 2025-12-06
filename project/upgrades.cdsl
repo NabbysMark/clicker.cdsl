@@ -1,6 +1,4 @@
-return {
-    ["AutoClicker"] = {
-        Price = 25,
-        
-    }
+return { 
+    ["AutoClicker"] = { DisplayName = "Auto Clicker", Price = 25, CPS = 1, }, 
+    ["MoreClicks"] = { DisplayName = "MoreClicks", Price = 50, CPP = 1, }, 
 }

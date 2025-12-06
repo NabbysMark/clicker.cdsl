@@ -1,16 +1,50 @@
-
 os.cls()
+
 local clicks = 0
 local lastClicks = -1
+local clicksPerPress = 1
+local clicksPerSecond = 0
 
 local digits = require("digitTextures.mod")
+local upgrades = require("upgrades.mod")
+
 local digitTextures = digits.digitTextures
 local DIGIT_SIZE = digits.DIGIT_SIZE
 
-local DIGIT_SCALE = 3
-local DIGIT_SPACING = 20
+local DIGIT_SCALE = 1
+local DIGIT_SPACING = 9
+
+local upgradeKeys = {}
+for key, _ in pairs(upgrades) do
+    table.insert(upgradeKeys, key)
+end
+
+table.sort(upgradeKeys)
+
+local upgradeIndex = 1
+local currentUpgrade = upgradeKeys[upgradeIndex]
 
 local activeSprites = {}
+
+
+local function printUpgradeInfo(upgradeName)
+    local u = upgrades[upgradeName]
+    os.cls()
+
+    print("Upgrade selected: " .. u.DisplayName)
+    print("Price: " .. u.Price)
+
+    if u.CPP then
+        print("Adds CPP: " .. u.CPP)
+    end
+
+    if u.CPS then
+        print("Adds CPS: " .. u.CPS)
+    end
+end
+
+printUpgradeInfo(currentUpgrade)
+
 
 local function clearNumberSprites()
     for _, spr in ipairs(activeSprites) do
@@ -18,6 +52,7 @@ local function clearNumberSprites()
     end
     activeSprites = {}
 end
+
 
 local function drawNumber(n, startX, startY)
     clearNumberSprites()
@@ -34,17 +69,68 @@ local function drawNumber(n, startX, startY)
             s.scale = vector2.new(DIGIT_SCALE, DIGIT_SCALE)
             s.position = vector2.new(x, startY)
             table.insert(activeSprites, s)
-
             x = x + DIGIT_SPACING
         end
     end
 end
 
+
+local function buyUpgrade(upgradeName)
+    local u = upgrades[upgradeName]
+
+    if clicks < u.Price then
+        os.cls()
+        print("Not enough clicks to buy " .. u.DisplayName)
+        print("Price: " .. u.Price)
+        return
+    end
+    
+    clicks = clicks - u.Price
+
+    if u.CPP then
+        clicksPerPress = clicksPerPress + u.CPP
+    end
+
+    if u.CPS then
+        clicksPerSecond = clicksPerSecond + u.CPS
+    end
+
+    os.cls()
+    print("Purchased " .. u.DisplayName .. "!")
+    print("New CPP: " .. clicksPerPress)
+    print("New CPS: " .. clicksPerSecond)
+
+    u.Price = math.round(math.floor(u.Price * 1.5))
+
+    print("New Price: " .. u.Price)
+end
+
+
 control:Connect(1, function(inputType, pressed)
     if inputType == "ButtonA" and pressed then
-        clicks = clicks + 1
+        clicks = clicks + clicksPerPress
+
+    elseif inputType == "ButtonB" and pressed then
+        upgradeIndex = upgradeIndex + 1
+        if upgradeIndex > #upgradeKeys then
+            upgradeIndex = 1
+        end
+
+        currentUpgrade = upgradeKeys[upgradeIndex]
+        printUpgradeInfo(currentUpgrade)
+
+    elseif inputType == "ButtonSelect" and pressed then
+        buyUpgrade(currentUpgrade)
     end
 end)
+
+task.spawn(function()
+    while true do
+        clicks = clicks + clicksPerSecond
+        task.wait(1)
+    end
+end)
+
 
 while true do
     if clicks ~= lastClicks then
