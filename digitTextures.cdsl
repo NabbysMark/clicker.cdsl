@@ -68,4 +68,20 @@ digitTextures[7] = makeTexture({
     0,0,0,C,
 })
 
+digitTextures[8] = makeTexture({
+    C,C,C,C,
+    C,0,0,C,
+    C,C,C,C,
+    C,0,0,C,
+    C,C,C,C,
+})
+
+digitTextures[9] = makeTexture({
+    C,C,C,C,
+    C,0,0,C,
+    C,C,C,C,
+    0,0,0,C,
+    0,0,0,C,
+})
+
 return digitTextures
